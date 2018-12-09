@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  api:
+    build: .
+    container_name: game_of_thrones
+    image: game_of_thrones
+    volumes:
+      - ../game-of-thrones:/opt/code
+    ports:
+      - "8080:8080"

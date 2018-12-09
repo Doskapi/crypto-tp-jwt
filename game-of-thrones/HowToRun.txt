@@ -1,0 +1,68 @@
+
+docker-compose run api flask shell
+
+from game_of_thrones.models import db, Client
+c1 = Client(name='My Client')
+c2 = Client(name='Other Client')
+db.session.add_all([c1, c2])
+db.session.commit()
+(c1.client_id, str(c1.secret_key))
+(c2.client_id, str(c2.secret_key))
+
+
+
+
+[20:04:02] sebastian@00744-scampoamor:~/D/F/C/c/game-of-thrones|master⚡?> docker-compose run api flask shell
+Python 3.6.7 (default, Nov 16 2018, 22:33:19)
+[GCC 6.3.0 20170516] on linux
+App: game_of_thrones.app [debug]
+Instance: /opt/code/instance
+>>> from game_of_thrones.models import db, Client
+>>> c1 = Client(name='My Client')
+>>> c2 = Client(name='Other Client')
+>>> db.session.add_all([c1, c2])
+>>> db.session.commit()
+>>> (c1.client_id, str(c1.secret_key))
+('dzeRSeRrRdz8UGXLf8Xi9X', '4ee6df59-2aef-4b83-a3cf-62289bae9d8d')
+>>> (c2.client_id, str(c2.secret_key))
+('KWyagwkvEwV7xiBBoHZTfm', 'cfe62e92-1ead-44ad-ae63-9c1e4ae11262')
+
+
+>>> from game_of_thrones.models import db, Client
+>>> c1 = Client(name='My Client')
+>>> c2 = Client(name='Other Client')
+>>> db.session.add_all([c1, c2])
+>>> db.session.commit()
+>>> (c1.client_id, str(c1.secret_key))
+('MNwDZbkLPopYamZNevucrh', '10d3e6f4-bb97-4fe5-91a6-f7b785612a2e')
+>>> (c2.client_id, str(c2.secret_key))
+('dpNzvHhZzQmE9iQ8pFMrSL', 'a16a9e17-7cab-4eb4-8e16-7b6c757b43b6')
+
+
+======================================================================================
+
+Hacemos un fake token para poder mandar el request
+
+docker-compose run api flask shell
+
+from game_of_thrones.models import Client
+from game_of_thrones.apis.v1.utils import encode_client_token
+c1 = Client.query.get(1)
+encode_client_token(c1)
+
+
+
+
+>>> from game_of_thrones.models import Client
+>>> from game_of_thrones.apis.v1.utils import encode_client_token
+>>> c1 = Client.query.get(1)
+>>> encode_client_token(c1)
+'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NDY5ODk3MDcsImlhdCI6MTU0NDM5NzcwNywibmJmIjoxNTQ0Mzk3NzA3LCJhdWQiOiIxIn0.NvjppQKhlJXMBXJkZqov_n95-rtv0xWxglOVmq8jemU'
+
+
+
+
+
+
+
+
