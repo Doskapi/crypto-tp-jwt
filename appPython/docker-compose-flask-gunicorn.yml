@@ -1,0 +1,12 @@
+version: '2'
+services:
+  webserver:
+    build: .
+    container_name: 'flask_gunicorn_ws'
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_DEBUG: 1
+    command: gunicorn -w 1 -t 90 -b 0.0.0.0:4000 app:app
